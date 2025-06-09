@@ -31,5 +31,9 @@ export function validateEldFileStructure(filePath: string): { results: SectionVa
 
   const valid = results.every(r => r.found);
 
+  const reportLines = results.map(r => `${r.found ? '✅' : '❌'} ${r.section}`);
+  const reportPath = path.resolve('./reports/eld-validation-report.txt');
+  fs.writeFileSync(reportPath, reportLines.join('\n'), 'utf-8');
+
   return { results, valid };
 }
